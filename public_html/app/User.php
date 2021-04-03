@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Jenssegers\Mongodb\Eloquent\Model;
 
+
 class User extends Model implements JWTSubject, AuthenticatableContract
 {
     use Authenticatable;

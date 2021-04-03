@@ -19,10 +19,10 @@ services:
             - ibid
 
     php:
-        image: php:7.3-fpm-alpine
-        # build:
-        #     context: .
-        #     dockerfile: Dockerfile
+        # image: php:7.3-fpm-alpine
+        build:
+            context: .
+            dockerfile: Dockerfile
         container_name: php
         volumes:
             - ./public_html:/public_html

@@ -24,6 +24,7 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
+$app->register(Kreait\Laravel\Firebase\ServiceProvider::class);
 
 $app->withFacades();
 
@@ -65,7 +66,7 @@ $app->configure('app');
 $app->configure('database');
 $app->configure('jwt');
 $app->configure('auth');
-
+$app->configure('swagger-lume');
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -100,6 +101,8 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register('Sentry\Laravel\ServiceProvider');
+$app->register(\SwaggerLume\ServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

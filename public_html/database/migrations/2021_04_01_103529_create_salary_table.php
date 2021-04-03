@@ -14,11 +14,12 @@ class CreateSalaryTable extends Migration
     public function up()
     {
         Schema::create('salary', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('user_id');
             $table->integer('salary');
             $table->date('date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

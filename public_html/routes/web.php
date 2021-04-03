@@ -35,3 +35,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('salary/{id}', 'SalaryController@update');
     Route::delete('salary/{id}', 'SalaryController@destroy');
 });
+
+// Filter
+Route::get('filter', 'FilterController@index');
+
+// Firebase
+Route::get('rank-firebase', 'RankFirebaseController@index');
+Route::get('rank-firebase/{id}', 'RankFirebaseController@get');
+Route::post('rank-firebase', 'RankFirebaseController@store');
+Route::put('rank-firebase/{id}', 'RankFirebaseController@update');
+Route::delete('rank-firebase/{id}', 'RankFirebaseController@destroy');

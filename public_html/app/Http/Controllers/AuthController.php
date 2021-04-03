@@ -15,6 +15,48 @@ class AuthController extends Controller
         $this->middleware('auth', ['only' => ['logout']]);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/login",
+     *      operationId="login",
+     *      tags={"Auth"},
+     *      summary="Login",
+     *      description="Login",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="email",
+     *                  type="string",
+     *                  description="email@gmail.com",
+     *              ),
+     *              @OA\Property(
+     *                  property="password",
+     *                  type="string",
+     *                  description="min 8 char",
+     *              ),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
+
     public function login(Request $request)
     {
         // Validation
@@ -52,6 +94,63 @@ class AuthController extends Controller
         ], 200);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/register",
+     *      operationId="register",
+     *      tags={"Auth"},
+     *      summary="Register User",
+     *      description="Register User",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="name",
+     *                  type="string",
+     *                  description="superman dan spiderman",
+     *              ),
+     *              @OA\Property(
+     *                  property="email",
+     *                  type="string",
+     *                  description="email@gmail.com",
+     *              ),
+     *              @OA\Property(
+     *                  property="password",
+     *                  type="string",
+     *                  description="min 8 char",
+     *              ),
+     *              @OA\Property(
+     *                  property="phone",
+     *                  type="string",
+     *                  description="081234567890 - nullable",
+     *              ),
+     *              @OA\Property(
+     *                  property="job",
+     *                  type="string",
+     *                  description="software engineer - nullable",
+     *              ),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
+
     public function register(Request $request)
     {
         // Validation
@@ -81,6 +180,29 @@ class AuthController extends Controller
             'data' => $user
         ], 200);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/logout",
+     *     operationId="/logout/",
+     *     tags={"Auth"},
+     *     security={{"token": {}}},
+     *     @OA\Response(
+     *         response="200",
+     *         description="Successful operation",
+     *         @OA\JsonContent()
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Bad Request",
+     *     ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *     ),
+     * )
+     * 
+     */
 
     public function logout()
     {
