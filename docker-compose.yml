@@ -1,0 +1,62 @@
+version: '3'
+
+networks:
+    ibid:
+
+services:
+    web:
+        image: nginx:alpine
+        container_name: nginx
+        ports:
+            - "80:80"
+        volumes:
+            - ./public_html:/public_html
+            - ./conf.d:/etc/nginx/conf.d
+        depends_on:
+            - php
+            - database
+        networks:
+            - ibid
+
+    php:
+        image: php:7.3-fpm-alpine
+        # build:
+        #     context: .
+        #     dockerfile: Dockerfile
+        container_name: php
+        volumes:
+            - ./public_html:/public_html
+        expose:
+            - 9000
+        networks:
+            - ibid
+
+    database:
+        image: mongo
+        container_name: mongo
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+            - ./mongo-volume:/data/db
+        environment:
+            - MONGO_INITDB_DATABASE=tes_ibid
+            - MONGO_INITDB_ROOT_USERNAME=bayusahidp
+            - MONGO_INITDB_ROOT_PASSWORD=bayusahidp
+        networks:
+            - ibid
+
+    redis:
+        image: "redis:alpine"
+        expose:
+            - "6379"
+        networks:
+            - ibid
+
+    sqldata:
+        image: mcr.microsoft.com/mssql/server
+        environment:
+            - SA_PASSWORD=bayusahidp
+            - ACCEPT_EULA=Y
+        ports:
+            - "5434:1433"
